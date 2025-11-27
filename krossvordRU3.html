@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новогодний кроссворд</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #d40000;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 30px);
+      gap: 1px;
+      margin: 20px auto;
+      width: fit-content;
+      background-color: #000;
+      padding: 2px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .black {
+      background-color: #000;
+    }
+    .clues {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .clues h2 {
+      color: #d40000;
+    }
+    .clue {
+      margin: 8px 0;
+    }
+    .instructions {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #e6f2ff;
+      border-left: 4px solid #007bff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Новогодний кроссворд</h1>
+
+  <!-- Кроссвордная сетка 12×12 -->
+  <div class="grid" id="crossword-grid">
+    <!-- Сетка будет заполнена JavaScript -->
+  </div>
+
+  <div class="clues">
+    <h2>По горизонтали:</h2>
+    <div class="clue">1. Северное животное, тянущее сани Деда Мороза</div>
+    <div class="clue">3. Украшение из цепочки лампочек или флажков</div>
+    <div class="clue">5. Праздничный фейерверк</div>
+    <div class="clue">6. Символ Нового года изо льда и снега с морковным носом</div>
+    <div class="clue">8. Традиционное новогоднее блюдо из овощей</div>
+
+    <h2>По вертикали:</h2>
+    <div class="clue">2. Праздничное дерево с игрушками</div>
+    <div class="clue">4. Помощница Деда Мороза</div>
+    <div class="clue">7. Яркие фрукты под ёлкой</div>
+    <div class="clue">9. Ледяной узор, падающий с неба</div>
+    <div class="clue">10. То, что ждёшь под ёлкой в Новый год</div>
+  </div>
+
+  <div class="instructions">
+    <p><strong>Как запустить редактор Kate в Astra Linux:</strong></p>
+    <p>Откройте терминал и выполните команду:</p>
+    <pre>kate</pre>
+    <p>Если редактор не установлен, установите его командой:</p>
+    <pre>sudo apt install kate</pre>
+  </div>
+
+  <script>
+    // Сетка кроссворда (12x12). '.' — пустая клетка, '#' — чёрная клетка
+    const gridData = [
+      ['О','Л','Е','Н','Ь','.','.','.','.','.','.','.'],
+      ['.','.','.','.','Г','И','Р','Л','Я','Н','Д','А'],
+      ['.','.','.','.','.','.','.','Ю','Т','.','.','.'],
+      ['С','Н','Е','Г','У','Р','О','Ч','К','А','.','.'],
+      ['.','.','.','.','.','.','.','.','.','С','.','.'],
+      ['С','Н','Е','Г','О','В','И','К','.','Н','.','.'],
+      ['.','.','.','.','.','.','.','.','.','Е','.','.'],
+      ['Е','Л','К','А','.','.','.','.','.','Ж','.','.'],
+      ['.','.','.','.','.','.','.','.','.','И','.','.'],
+      ['П','О','Д','А','Р','К','И','.','.','Н','.','.'],
+      ['.','.','.','.','.','.','.','.','.','К','.','.'],
+      ['М','А','Н','Д','А','Р','И','Н','Ы','.','.','.']
+    ];
+
+    const gridContainer = document.getElementById('crossword-grid');
+
+    gridData.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        const cellDiv = document.createElement('div');
+        cellDiv.classList.add('cell');
+        if (cell === '#') {
+          cellDiv.classList.add('black');
+        } else if (cell !== '.') {
+          cellDiv.textContent = cell;
+        }
+        gridContainer.appendChild(cellDiv);
+      });
+    });
+  </script>
+</body>
+</html>
