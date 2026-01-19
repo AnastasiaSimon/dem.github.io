@@ -1,4 +1,8 @@
-body{
+body{blockquote.q {
+	color: #D4AF37;
+	border-left: 4px solid #8B0000;
+	font-style: italic;
+}
 	background-color: #d2b48c;
 	margin-left: 20%;
 	margin-right: 20%;
