@@ -33,59 +33,7 @@
 </p>
 </boby>
   
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Снег</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-      overflow: hidden;
-      position: relative;
-    }
 
-    .snowflake {
-      position: absolute;
-      color: white;
-      font-size: 20px;
-      top: -20px;
-      user-select: none;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(105vh) rotate(360deg);
-      }
-    }
-  </style>
-</head>
-<body>
-  <script>
-    // Создаём 50 снежинок
-    for (let i = 0; i < 50; i++) {
-      const snowflake = document.createElement('div');
-      snowflake.innerHTML = '❄';
-      snowflake.classList.add('snowflake');
-
-      // Случайное положение по горизонтали
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      
-      // Случайная скорость (от 5 до 15 секунд)
-      const duration = 5 + Math.random() * 10;
-      snowflake.style.animationDuration = duration + 's';
-
-      // Случайный размер
-      const size = 0.5 + Math.random() * 1.5;
-      snowflake.style.fontSize = size + 'em';
-
-      document.body.appendChild(snowflake);
-    }
-  </script>
-</body>
 
 </html>
 
