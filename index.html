@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <body><div id="snowflakes"></div></body>
+  <body><div id="snowflakes"></div>
+  <script>
+  const snowContainer = document.getElementById('snowflakes');
+  const snowflakeCount = 50; // количество снежинок
+
+  for (let i = 0; i < snowflakeCount; i++) {
+    const snowflake = document.createElement('div');
+    snowflake.innerHTML = '❄';
+    snowflake.classList.add('snowflake');
+
+    // Случайные параметры
+    const size = Math.random() * 1.5 + 0.5; // размер от 0.5 до 2em
+    const posX = Math.random() * 100; // позиция по X (%)
+    const duration = Math.random() * 5 + 5; // длительность падения от 5 до 10 сек
+    const delay = Math.random() * 5; // задержка старта
+
+    snowflake.style.left = `${posX}vw`;
+    snowflake.style.fontSize = `${size}em`;
+    snowflake.style.animationDuration = `${duration}s`;
+    snowflake.style.animationDelay = `${delay}s`;
+
+    snowContainer.appendChild(snowflake);
+  }
+</script>
+  </body>
+
+  
   <meta charset="UTF-8" />
   <title>Мой сайт</title>
   <style>
