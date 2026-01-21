@@ -6,6 +6,164 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <boby>
+
+
+
+
+  
+  <h2> 21 января 2026 <h2>
+  
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Задание: Сгенерируй ключи RSA</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+      background-color: #fafafa;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .step {
+      background: white;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #3498db;
+    }
+    .keys {
+      background: #e8f4fc;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .success {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .error {
+      color: #e74c3c;
+    }
+    code {
+      background: #f1f1f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔐 Задание: Сгенерируй свою пару ключей RSA</h1>
+
+  <p>Попробуй сам пройти все шаги алгоритма RSA на простом примере!<br>
+  Ты создашь <strong>открытый</strong> и <strong>закрытый</strong> ключи — основу безопасной передачи данных.</p>
+
+  <div class="step">
+    <h2>1️⃣ Выбери два простых числа</h2>
+    <p><strong>Простые числа</strong> — это числа, которые делятся только на 1 и самих себя.</p>
+    <p>Возьми самые маленькие:</p>
+    <ul>
+      <li>\( p = 3 \)</li>
+      <li>\( q = 5 \)</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h2>2️⃣ Вычисли \( n \)</h2>
+    <p>\[ n = p \times q = 3 \times 5 = \boxed{15} \]</p>
+    <p>Это часть обоих ключей.</p>
+  </div>
+
+  <div class="step">
+    <h2>3️⃣ Вычисли функцию Эйлера \( \varphi(n) \)</h2>
+    <p>\[ \varphi(n) = (p - 1)(q - 1) = (3 - 1)(5 - 1) = 2 \times 4 = \boxed{8} \]</p>
+  </div>
+
+  <div class="step">
+    <h2>4️⃣ Выбери открытую экспоненту \( e \)</h2>
+    <p>Число \( e \) должно удовлетворять двум условиям:</p>
+    <ul>
+      <li>\( 1 < e < \varphi(n) \) → то есть \( 1 < e < 8 \)</li>
+      <li>\( \gcd(e, \varphi(n)) = 1 \) → \( e \) и 8 <strong>взаимно просты</strong></li>
+    </ul>
+    <p>Проверим:</p>
+    <ul>
+      <li>\( e = 3 \) → \( \gcd(3, 8) = 1 \) <span class="success">✅ подходит!</span></li>
+    </ul>
+    <p><em>Другие варианты: \( e = 5 \) или \( e = 7 \) — тоже работают.</em></p>
+  </div>
+
+  <div class="step">
+    <h2>5️⃣ Найди закрытый ключ \( d \)</h2>
+    <p>Нужно найти такое число \( d \), чтобы:</p>
+    <p>\[ (e \cdot d) \bmod \varphi(n) = 1 \]</p>
+    <p>\[ (3 \cdot d) \bmod 8 = 1 \]</p>
+    <p>Перебираем:</p>
+    <ul>
+      <li>\( d = 1 \) → \( 3 \bmod 8 = 3 \) <span class="error">❌</span></li>
+      <li>\( d = 2 \) → \( 6 \bmod 8 = 6 \) <span class="error">❌</span></li>
+      <li>\( d = 3 \) → \( 9 \bmod 8 = 1 \) <span class="success">✅</span></li>
+    </ul>
+    <p>✅ Получаем: <strong>\( d = 3 \)</strong></p>
+  </div>
+
+  <div class="keys">
+    <h2>🗝️ Готово! Твои ключи:</h2>
+    <ul>
+      <li><strong>Открытый ключ</strong>: \( (n, e) = (15, 3) \) → им <strong>шифруют</strong></li>
+      <li><strong>Закрытый ключ</strong>: \( (n, d) = (15, 3) \) → им <strong>расшифровывают</strong></li>
+    </ul>
+    <p><em>⚠️ В этом учебном примере \( e = d \), но в реальных системах они всегда разные (из-за больших простых чисел).</em></p>
+  </div>
+
+  <div class="step">
+    <h2>💡 Попробуй сам!</h2>
+    <ol>
+      <li>Зашифруй сообщение \( m = 2 \):<br>
+        \( c = m^e \bmod n = 2^3 \bmod 15 = 8 \)</li>
+      <li>Расшифруй:<br>
+        \( m = c^d \bmod n = 8^3 \bmod 15 = 512 \bmod 15 = 2 \) <span class="success">✅</span></li>
+    </ol>
+    <p>Работает!</p>
+  </div>
+
+  <footer>
+    <p>✨ Теперь ты знаешь, как устроена основа RSA!<br>
+    Хочешь усложнить? Попробуй другие простые числа: \( p = 5, q = 11 \) или \( p = 7, q = 13 \).</p>
+  </footer>
+
+</body>
+
+
+
+
+
+
+
+
+  
   <h2> 19 января 2026 </h2>
   <p>АПЕЛЬСИН – САЦЬНВЩЮ 17k<p/>
   <p>АБРИКОС – ЫЬЛГЕЙМ 27k</p>
