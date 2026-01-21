@@ -12,162 +12,165 @@
 
   
   <h2> 21 января 2026 <h2>
+
+<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RSA — Пример генерации ключей | Anastasia </title>
-
-  <!-- MathJax для формул -->
+  <title>Задание: RSA — генерация ключей</title>
+  <!-- Подключаем шрифт Pacifico из Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Шрифты -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Nunito:wght@700&display=swap" rel="stylesheet">
-
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
       margin: 0;
-      padding: 2rem 1.5rem;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f9f9ff 0%, #d0e7ff 50%, #1e3a8a 100%);
-      font-family: 'Quicksand', 'Nunito', sans-serif;
-      font-size: 1.4em;
-      line-height: 1.7;
-      color: #1a1a2e;
-      position: relative;
-      overflow-x: hidden;
+      padding: 0;
+      background-color: #1e1e1e; /* тёмный фон */
+      color: #ffffff; /* белый текст */
     }
-
-    /* Северное сияние */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 30%, rgba(100, 200, 255, 0.15), transparent 40%),
-                  radial-gradient(circle at 80% 70%, rgba(150, 220, 255, 0.1), transparent 50%);
-      pointer-events: none;
-      z-index: 1;
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px;
     }
-
-    /* Снежинки */
-    .snowflakes {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .snowflake {
-      position: normal;
-      color: white;
-      font-size: 1.2em;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      to { transform: translateY(100vh) rotate(360deg); }
-    }
-
-    /* Основной контент — без контейнера */
-    body > * {
-      position: relative;
-      z-index: 3;
-      max-width: 800px;
-      margin-left: 20%;
-      margin-right: 20%;
-    }
-
-    h1 {
-      text-align: normal;
-      font-weight: normal;
-      color: #ffa500;
-      margin: 1.5rem 0;
-    }
-
-    .email-link {
+    header {
       text-align: center;
-      margin-bottom: 1.8rem;
-      font-size: 1.1em;
-      line-height: 1.4;
+      margin-bottom: 32px;
     }
-
-    .keys-box {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: #e3f2fd;
-      border-left: 5px solid #2196f3;
+    h1 {
+      color: #ffffff;
+      font-size: 1.8rem;
+    }
+    .step {
+      background: #2d2d2d;
+      padding: 18px;
+      margin-bottom: 20px;
       border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      border-left: 4px solid #3498db;
+    }
+    .step h2 {
+      margin-top: 0;
+      color: #3498db;
+      font-size: 1.25rem;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    .success {
+      color: #2ecc71;
+      font-weight: bold;
+    }
+    .error {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .keys-box {
+      background-color: #253a4d;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 24px 0;
+      border-left: 4px solid #2980b9;
+    }
+    code {
+      background: #3a3a3a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #f8f8f2;
     }
 
-    @media (max-width: 600px) {
-      body { font-size: 1.2em; padding: 1.2rem; }
-      body > * { max-width: 100%; }
+    /* Стиль для строки шрифтом Pacifico */
+    .pudelinka {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem;
+      color: #ffcc00;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #aaa;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h1>Задание для сайта: Генерация ключей RSA</h1>
+    </header>
 
-  <!-- Снежинки -->
-  <div class="snowflakes" id="snowflakes"></div>
-  <script>
-    const snowflakes = document.getElementById('snowflakes');
-    const flakes = '❄❅❆';
-    for (let i = 0; i < 30; i++) {
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-      flake.innerHTML = flakes.charAt(Math.floor(Math.random() * flakes.length));
-      flake.style.left = Math.random() * 100 + 'vw';
-      flake.style.opacity = 0.4 + Math.random() * 0.5;
-      flake.style.fontSize = (0.8 + Math.random() * 0.8) + 'em';
-      flake.style.animationDuration = (5 + Math.random() * 10) + 's';
-      snowflakes.appendChild(flake);
-    }
-  </script>
+    <!-- Одна строка шрифтом Pacifico (вместо "Pudelinka") -->
+    <div class="pudelinka">Секреты шифрования начинаются здесь!</div>
 
-  <!-- Email в трёх строках -->
-  <div class="email-link">
-   AnastasiaSimon<br>
-    Студентка медицинского колледжа<br>
-    <a href="mailto:anastasiaasimonenko09@gmail.com" style="color: #ffa500; text-decoration: anastasiaasimonenko09@gmail.com">/a>
+    <div class="step">
+      <h2>1. Выбираем два простых числа \( p \) и \( q \)</h2>
+      <p>Простые числа — это те, что делятся только на 1 и себя.</p>
+      <p>Возьмите самые маленькие, например:</p>
+      <ul>
+        <li>\( p = 3 \)</li>
+        <li>\( q = 5 \)</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h2>2. Считаем \( n = p \times q \)</h2>
+      <p>\[ n = 3 \times 5 = 15 \]</p>
+    </div>
+
+    <div class="step">
+      <h2>3. Считаем \( \varphi(n) = (p - 1)(q - 1) \)</h2>
+      <p>\[ \varphi(n) = (3 - 1) \times (5 - 1) = 2 \times 4 = 8 \]</p>
+    </div>
+
+    <div class="step">
+      <h2>4. Выбираем число \( e \)</h2>
+      <p>Число \( e \) должно удовлетворять условиям:</p>
+      <ul>
+        <li>\( 1 < e < \varphi(n) \)</li>
+        <li>\( e \) и \( \varphi(n) \) взаимно просты (их НОД = 1)</li>
+      </ul>
+      <p>Попробуем \( e = 3 \):<br>
+        \( \gcd(3, 8) = 1 \) → <span class="success">✅ подходит!</span></p>
+      <p><em>(Можно было взять \( e = 5 \) или \( e = 7 \) — тоже подошли бы.)</em></p>
+    </div>
+
+    <div class="step">
+      <h2>5. Находим закрытый ключ \( d \)</h2>
+      <p>Нужно найти такое число \( d \), чтобы:<br>
+        \[ (e \cdot d) \bmod \varphi(n) = 1 \]</p>
+      <p>То есть: \( (3 \cdot d) \bmod 8 = 1 \)</p>
+      <ul>
+        <li>\( d = 1 \) → \( 3 \times 1 = 3 \) → \( 3 \bmod 8 = 3 \) <span class="error">❌</span></li>
+        <li>\( d = 2 \) → \( 6 \bmod 8 = 6 \) <span class="error">❌</span></li>
+        <li>\( d = 3 \) → \( 9 \bmod 8 = 1 \) <span class="success">✅</span></li>
+      </ul>
+    </div>
+
+    <div class="keys-box">
+      <h2>Ключи</h2>
+      <p><strong>Открытый ключ:</strong> \( (n, e) = (15, 3) \) → им можно зашифровать</p>
+      <p><strong>Закрытый ключ:</strong> \( (n, d) = (15, 3) \) → им можно расшифровать</p>
+    </div>
+
+    <footer>
+      <p>Это учебный пример алгоритма RSA. В реальных системах используются гораздо большие простые числа.</p>
+    </footer>
   </div>
-
-  <h1>Пример генерации ключей RSA</h1>
-
-  <p><strong>1. Выбираем два простых числа:</strong><br>
-     \( p = 3 \),&nbsp;&nbsp; \( q = 5 \)</p>
-
-  <p><strong>2. Вычисляем \( n = p \times q \):</strong><br>
-     \( n = 3 \times 5 = 15 \)</p>
-
-  <p><strong>3. Вычисляем функцию Эйлера \( \varphi(n) = (p-1)(q-1) \):</strong><br>
-     \( \varphi(n) = (3-1)(5-1) = 2 \times 4 = 8 \)</p>
-
-  <p><strong>4. Выбираем открытую экспоненту \( e \):</strong><br>
-     Условия: \( 1 < e < \varphi(n) \) и \( \gcd(e, \varphi(n)) = 1 \)<br>
-     Пробуем \( e = 3 \): \( \gcd(3, 8) = 1 \) → ✅ подходит!</p>
-
-  <p><strong>5. Находим закрытый ключ \( d \):</strong><br>
-     Нужно: \( (e \cdot d) \bmod \varphi(n) = 1 \)<br>
-     \( (3 \cdot d) \bmod 8 = 1 \)<br>
-     Перебор:<br>
-     &nbsp;&nbsp;– \( d = 1 \): \( 3 \bmod 8 = 3 \) ❌<br>
-     &nbsp;&nbsp;– \( d = 2 \): \( 6 \bmod 8 = 6 \) ❌<br>
-     &nbsp;&nbsp;– \( d = 3 \): \( 9 \bmod 8 = 1 \) ✅<br>
-     ⇒ \( d = 3 \)</p>
-
-  <div class="keys-box">
-    <p><strong>🔑 Открытый ключ:</strong> \( (n, e) = (15,\ 3) \) — для шифрования</p>
-    <p><strong>🔒 Закрытый ключ:</strong> \( (n, d) = (15,\ 3) \) — для расшифровки</p>
-  </div>
-
 </body>
 </html>
-
 
   
   <h2> 19 января 2026 </h2>
