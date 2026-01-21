@@ -1,30 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
-
-<body>
-
-  <div id="snowflakes"></div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const c = document.getElementById('snowflakes');
-      for (let i = 0; i < 30; i++) {
-        const s = document.createElement('div');
-        s.textContent = '❄';
-        s.className = 'snowflake';
-        s.style.left = Math.random() * 100 + 'vw';
-        s.style.opacity = Math.random() * 0.7 + 0.3;
-        s.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        c.appendChild(s);
-      }
-    });
-  </script>
-</body>
-
- 
- 
   <meta charset="UTF-8" />
   <title>Мой сайт</title>
   <style>
