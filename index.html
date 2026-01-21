@@ -12,6 +12,163 @@
 
   
   <h2> 21 января 2026 <h2>
+    <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RSA — Пример генерации ключей | Diana Durmanova</title>
+
+  <!-- MathJax для формул -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Nunito:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f9f9ff 0%, #d0e7ff 50%, #1e3a8a 100%);
+      font-family: 'Quicksand', 'Nunito', sans-serif;
+      font-size: 1.4em;
+      line-height: 1.7;
+      color: #1a1a2e;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Северное сияние */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(100, 200, 255, 0.15), transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(150, 220, 255, 0.1), transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Снежинки */
+    .snowflakes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .snowflake {
+      position: absolute;
+      color: white;
+      font-size: 1.2em;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    /* Основной контент — без контейнера */
+    body > * {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin: 1.5rem 0;
+    }
+
+    .email-link {
+      text-align: center;
+      margin-bottom: 1.8rem;
+      font-size: 1.1em;
+      line-height: 1.4;
+    }
+
+    .keys-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #e3f2fd;
+      border-left: 5px solid #2196f3;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 1.2em; padding: 1.2rem; }
+      body > * { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Снежинки -->
+  <div class="snowflakes" id="snowflakes"></div>
+  <script>
+    const snowflakes = document.getElementById('snowflakes');
+    const flakes = '❄❅❆';
+    for (let i = 0; i < 30; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'snowflake';
+      flake.innerHTML = flakes.charAt(Math.floor(Math.random() * flakes.length));
+      flake.style.left = Math.random() * 100 + 'vw';
+      flake.style.opacity = 0.4 + Math.random() * 0.5;
+      flake.style.fontSize = (0.8 + Math.random() * 0.8) + 'em';
+      flake.style.animationDuration = (5 + Math.random() * 10) + 's';
+      snowflakes.appendChild(flake);
+    }
+  </script>
+
+  <!-- Email в трёх строках -->
+  <div class="email-link">
+    Diana Durmanova<br>
+    Студентка информатики<br>
+    <a href="mailto:arinxsic@gmail.com" style="color: #1e3a8a; text-decoration: underline;">arinxsic@gmail.com</a>
+  </div>
+
+  <h1>Пример генерации ключей RSA</h1>
+
+  <p><strong>1. Выбираем два простых числа:</strong><br>
+     \( p = 3 \),&nbsp;&nbsp; \( q = 5 \)</p>
+
+  <p><strong>2. Вычисляем \( n = p \times q \):</strong><br>
+     \( n = 3 \times 5 = 15 \)</p>
+
+  <p><strong>3. Вычисляем функцию Эйлера \( \varphi(n) = (p-1)(q-1) \):</strong><br>
+     \( \varphi(n) = (3-1)(5-1) = 2 \times 4 = 8 \)</p>
+
+  <p><strong>4. Выбираем открытую экспоненту \( e \):</strong><br>
+     Условия: \( 1 < e < \varphi(n) \) и \( \gcd(e, \varphi(n)) = 1 \)<br>
+     Пробуем \( e = 3 \): \( \gcd(3, 8) = 1 \) → ✅ подходит!</p>
+
+  <p><strong>5. Находим закрытый ключ \( d \):</strong><br>
+     Нужно: \( (e \cdot d) \bmod \varphi(n) = 1 \)<br>
+     \( (3 \cdot d) \bmod 8 = 1 \)<br>
+     Перебор:<br>
+     &nbsp;&nbsp;– \( d = 1 \): \( 3 \bmod 8 = 3 \) ❌<br>
+     &nbsp;&nbsp;– \( d = 2 \): \( 6 \bmod 8 = 6 \) ❌<br>
+     &nbsp;&nbsp;– \( d = 3 \): \( 9 \bmod 8 = 1 \) ✅<br>
+     ⇒ \( d = 3 \)</p>
+
+  <div class="keys-box">
+    <p><strong>🔑 Открытый ключ:</strong> \( (n, e) = (15,\ 3) \) — для шифрования</p>
+    <p><strong>🔒 Закрытый ключ:</strong> \( (n, d) = (15,\ 3) \) — для расшифровки</p>
+  </div>
+
+</body>
+</html>
 
 
 
