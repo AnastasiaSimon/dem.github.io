@@ -1,14 +1,29 @@
+css
+
 @font-face {
-    font-family: 'Pudelinka';
-    src: url('fonts/Pudelinka.woff2') format('woff2'),
-         url('fonts/Pudelinka.woff') format('woff');
+	fonr-family: "Pudelinka"
+    scr: url("Fonts/pudelinka.ttf") format('truetype');
     font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-style: normal;
+}
+	
+body {
+   background-color: #d2b48c;
+   color: #ffd700
+	margin-left: 20%;
+	margin-right: 20%;
+	border: 2px dotted black;
+	padding: 10px;
+	font-family: sans serif; 
+ }
+
+blockquote.q {
+color: #D4AF37;
+borber-left: 4px solid #8B0000;
+font-style: italic;
 }
 
-.pudelinka-text {
-    font-family: 'Pudelinka', sans-serif;
-    font-size: 24px; 
-    color: #a8d8ea;
+p.quote {
+	font-family: "Pudelinka", cursive;
+	color: #ffa500;
 }
