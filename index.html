@@ -14,32 +14,6 @@
 
 
 
- 
-<!-- Снежинки -->
-  <div class="snowflakes" id="snowflakes"></div>
-  <script>
-    const snowflakes = document.getElementById('snowflakes');
-    const flakes = '❄❅❆';
-    for (let i = 0; i < 30; i++) {
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-      flake.innerHTML = flakes.charAt(Math.floor(Math.random() * flakes.length));
-      flake.style.left = Math.random() * 100 + 'vw';
-      flake.style.opacity = 0.4 + Math.random() * 0.5;
-      flake.style.fontSize = (0.8 + Math.random() * 0.8) + 'em';
-      flake.style.animationDuration = (5 + Math.random() * 10) + 's';
-      snowflakes.appendChild(flake);
-    }
-  </script>
-
-
-
-
-
-
-
-
-
   
 
 
