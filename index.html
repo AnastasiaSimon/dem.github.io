@@ -4,6 +4,325 @@
 
 
 
+
+<boby>Cоздано 13.04.2026</boby>
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦷 Стоматологическое отделение — Диаграммы БД</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: #f8f9fa; 
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header h1 { margin-bottom: 0.5rem; }
+    header p { opacity: 0.9; }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 1rem; }
+    
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .nav-tab {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      background: #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: #333;
+    }
+    .nav-tab:hover, .nav-tab.active {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .diagram-viewer {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-height: 600px;
+    }
+    .diagram-frame {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: none;
+    }
+    .diagram-frame.active { display: block; }
+    
+    .diagram-info {
+      padding: 1rem;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .download-links {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-download {
+      padding: 0.5rem 1rem;
+      background: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .btn-download:hover { background: #218838; }
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-tabs { flex-direction: column; }
+      .diagram-frame { height: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🦷 Стоматологическое отделение</h1>
+  <p>Модель данных и индексы в draw.io</p>
+</header>
+
+<div class="container">
+  
+  <!-- Навигация по диаграммам -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showDiagram('hierarchy', this)">
+      🏥 1. Иерархическая модель
+    </button>
+    <button class="nav-tab" onclick="showDiagram('doctor-main', this)">
+      👨‍⚕️ 2. Индекс: Врач (основной)
+    </button>
+    <button class="nav-tab" onclick="showDiagram('nurse-main', this)">
+      👩‍⚕️ 3. Индекс: Медсестра (основной)
+    </button>
+    <button class="nav-tab" onclick="showDiagram('operation-main', this)">
+      🔪 4. Индекс: Операция (основной)
+    </button>
+    <button class="nav-tab" onclick="showDiagram('doctor-sec', this)">
+      🔎 5. Врач (вторичные индексы)
+    </button>
+    <button class="nav-tab" onclick="showDiagram('nurse-sec', this)">
+      🔎 6. Медсестра (вторичные индексы)
+    </button>
+    <button class="nav-tab" onclick="showDiagram('operation-sec', this)">
+      🔎 7. Операция (вторичные индексы)
+    </button>
+  </nav>
+
+  <!-- Область просмотра диаграмм -->
+  <div class="diagram-viewer">
+    
+    <!-- 1. Иерархическая модель -->
+    <iframe 
+      id="hierarchy" 
+      class="diagram-frame active"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/1_hierarchical_model.drawio.xml&embed=1&nav=1&resize=1"
+      title="Иерархическая модель"
+      loading="lazy">
+    </iframe>
+
+    <!-- 2. Основной индекс: Врач -->
+    <iframe 
+      id="doctor-main" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/2_doctor_main_index.drawio.xml&embed=1&nav=1&resize=1"
+      title="Индекс врача"
+      loading="lazy">
+    </iframe>
+
+    <!-- 3. Основной индекс: Медсестра -->
+    <iframe 
+      id="nurse-main" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/3_nurse_main_index.drawio.xml&embed=1&nav=1&resize=1"
+      title="Индекс медсестры"
+      loading="lazy">
+    </iframe>
+
+    <!-- 4. Основной индекс: Операция -->
+    <iframe 
+      id="operation-main" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/4_operation_main_index.drawio.xml&embed=1&nav=1&resize=1"
+      title="Индекс операции"
+      loading="lazy">
+    </iframe>
+
+    <!-- 5. Вторичные индексы: Врач -->
+    <iframe 
+      id="doctor-sec" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/5_doctor_secondary_indexes.drawio.xml&embed=1&nav=1&resize=1"
+      title="Вторичные индексы врача"
+      loading="lazy">
+    </iframe>
+
+    <!-- 6. Вторичные индексы: Медсестра -->
+    <iframe 
+      id="nurse-sec" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/6_nurse_secondary_indexes.drawio.xml&embed=1&nav=1&resize=1"
+      title="Вторичные индексы медсестры"
+      loading="lazy">
+    </iframe>
+
+    <!-- 7. Вторичные индексы: Операция -->
+    <iframe 
+      id="operation-sec" 
+      class="diagram-frame"
+      src="https://app.diagrams.net/?lightbox=1&url=https://ВАШ_САЙТ/diagrams/7_operation_secondary_indexes.drawio.xml&embed=1&nav=1&resize=1"
+      title="Вторичные индексы операции"
+      loading="lazy">
+    </iframe>
+
+    <!-- Информация о текущей диаграмме -->
+    <div class="diagram-info">
+      <strong>💡 Подсказка:</strong> 
+      Используйте колёсико мыши для зума, перетаскивайте для панорамирования. 
+      Кнопка "📥 Скачать" ниже позволяет сохранить диаграмму.
+      <div class="download-links">
+        <a href="diagrams/1_hierarchical_model.drawio.xml" class="btn-download" download>📥 Скачать .drawio</a>
+        <a href="diagrams/1_hierarchical_model.svg" class="btn-download" download>🖼️ Скачать SVG</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>🦷 Проект: Модель данных стоматологического отделения | draw.io + HTML/CSS/JS</p>
+  <p><small>Все диаграммы интерактивны и доступны для скачивания</small></p>
+</footer>
+
+<script>
+  // Функция переключения диаграмм
+  function showDiagram(diagramId, btn) {
+    // Скрыть все iframe
+    document.querySelectorAll('.diagram-frame').forEach(frame => {
+      frame.classList.remove('active');
+    });
+    // Показать выбранный
+    document.getElementById(diagramId).classList.add('active');
+    
+    // Обновить активную кнопку
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    // Обновить ссылки на скачивание (опционально)
+    updateDownloadLinks(diagramId);
+  }
+  
+  // Обновление ссылок на скачивание
+  function updateDownloadLinks(diagramId) {
+    const files = {
+      'hierarchy': '1_hierarchical_model',
+      'doctor-main': '2_doctor_main_index',
+      'nurse-main': '3_nurse_main_index',
+      'operation-main': '4_operation_main_index',
+      'doctor-sec': '5_doctor_secondary_indexes',
+      'nurse-sec': '6_nurse_secondary_indexes',
+      'operation-sec': '7_operation_secondary_indexes'
+    };
+    const fileName = files[diagramId];
+    const links = document.querySelector('.download-links');
+    links.innerHTML = `
+      <a href="diagrams/${fileName}.drawio.xml" class="btn-download" download>📥 Скачать .drawio</a>
+      <a href="diagrams/${fileName}.svg" class="btn-download" download>🖼️ Скачать SVG</a>
+      <a href="diagrams/${fileName}.png" class="btn-download" download>🖼️ Скачать PNG</a>
+    `;
+  }
+  
+  // Поддержка клавиатуры (стрелки для навигации)
+  document.addEventListener('keydown', (e) => {
+    const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+    const activeIndex = tabs.findIndex(tab => tab.classList.contains('active'));
+    
+    if (e.key === 'ArrowRight' && activeIndex < tabs.length - 1) {
+      tabs[activeIndex + 1].click();
+    } else if (e.key === 'ArrowLeft' && activeIndex > 0) {
+      tabs[activeIndex - 1].click();
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
  
  <h2> 30 марта 2026 </h2>
  <p> Добавленный числовой признак: 'reading score'
